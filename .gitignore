@@ -1,0 +1,30 @@
+**/bin/
+**/obj/
+**/out/
+/runtime-logs/
+
+# Publication boundary: never commit platform/runtime artifacts or analysis data.
+*.a
+*.bin
+*.dmp
+*.elf
+*.ffpfsc
+*.i64
+*.id0
+*.id1
+*.id2
+*.idb
+*.nam
+*.pkg
+*.prx
+*.sprx
+*.til
+*.zip
+
+# Do not publish captured screens or photos from private analysis sessions.
+*.bmp
+*.gif
+*.jpeg
+*.jpg
+*.png
+*.webp
