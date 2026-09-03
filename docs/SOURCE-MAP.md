@@ -24,6 +24,7 @@ remains the production CELT-routing milestone.
 | `examples/native-audio-poc/aac/src/main.cpp` | Native C++20 ADTS framing, `libSceAudiodec` codec 3, and signed-16 AudioOut output |
 | `examples/native-audio-poc/mp3/src/main.cpp` | Native C++20 MP3 framing, `libSceAudiodec` codec 2, and signed-16 AudioOut output |
 | `examples/native-audio-poc/opus/src/main.cpp` | Native C++20 codec-21 `libSceOpusDec` lifecycle and signed-16 AudioOut output |
+| `examples/native-audio-poc/microphone/src/main.cpp` | Native C++20 user-routed `libSceAudioIn` capture, WAV output, and per-block silence diagnostics |
 | `workspace/dev/ps5-native-app-boilerplate/src/main.cpp` | Canonical C++20 app entry point, ownership, and no-exception/no-RTTI build contract |
 | `workspace/dev/psradio/src/radio_service.c` | HTTP AAC/ADTS stream, native `sceAudiodec`, mono/stereo adaptation, linear resampling, AudioOut blocks, decoder recreation for HE-AAC behavior |
 | `workspace/dev/ps5-radio-browser/src/radio_service.c` | Production AAC codec 3, MP3 codec 2, bounded format dispatch, cancellable HTTP, two-second PCM ring, stable-playback retry renewal, shared AudioOut, and codec recovery |
@@ -72,8 +73,8 @@ behavior.
 
 The canonical native source overlays are under `examples/native-audio-poc`.
 They keep the platform ABI visible and use the same ownership boundaries as
-the boilerplate. AAC, MP3, and Opus are the complete runnable example set in
-this repository.
+the boilerplate. AAC, MP3, Opus, and controller microphone capture are the
+complete runnable example set in this repository.
 
 Runtime execution and evidence capture are specified in [VALIDATION.md](VALIDATION.md).
 

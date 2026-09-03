@@ -23,9 +23,34 @@ physical DSP or fixed-function decoder block.
 | Native FLAC | A 44.1 kHz stereo stream played, stopped, and switched to AAC. |
 | Ogg-FLAC soak | Playback remained active at 44.1 kHz stereo for more than eleven minutes without a later error or rebuffer. |
 | Vorbis soak | A 44.1 kHz stereo stream played for about eleven minutes without a rebuffer/error transition, then released runtime layers normally. |
+| DualSense microphone | Two Chiaki-free runs captured valid 16 kHz signed-16 mono PCM through VoiceChat, General, and VoiceRecognition AudioIn routes. |
 
 The final production build has zero unresolved imports and runs as a
 Game-category application.
+
+## Controller microphone result and boundary
+
+The controller-microphone probe used a Game-category native title on firmware
+6.02. It resolved the initial user, opened `libSceAudioIn`, pulled fixed
+256-frame blocks, and wrote standard RIFF/WAVE files under `/download0`.
+Direct loader control was used with Chiaki-ng absent so Remote Play could not
+change ownership or audio routing.
+
+In the first clean run, VoiceChat (`0`), General (`1`), and VoiceRecognition
+(`5`) each produced exactly 128,000 PCM data bytes: four seconds of 16 kHz,
+mono, signed-16 audio. Peak amplitudes were 31,989, 30,354, and 11,830,
+respectively. The instantaneous silence state remained zero. A second run
+again produced nonzero PCM on all three routes and observed brief silence-state
+transitions at route startup or shutdown without an API error.
+
+The controller must be powered on and its orange microphone-mute light must be
+off. With the controller off, AudioIn can still open and return correctly timed
+zero-filled blocks, so a successful handle is not proof of an active physical
+input. The tested title needed no extra package capability or firmware consent
+prompt, but system privacy settings, selected input, controller mute, and later
+firmware remain outside that narrow result. Applications remain responsible
+for visible recording controls, consent, and lawful handling of captured
+audio.
 
 ## Additional device evidence
 
@@ -157,6 +182,10 @@ For a new payload or recovery change, capture:
 - direct switching across every enabled codec;
 - reconnect, underrun, and automatic-recovery behavior; and
 - exact ELF/package hashes, firmware, and toolchain versions.
+
+For microphone changes, also record the user ID, input purpose, rate, grain,
+format, per-block silence state, nonzero sample count, peak level, controller
+power/mute state, and whether Remote Play was absent.
 
 Before expanding HLS beyond the current subset, require separate evidence for
 any encryption, byte-range, fMP4/CMAF, LL-HLS, alternate-rendition,

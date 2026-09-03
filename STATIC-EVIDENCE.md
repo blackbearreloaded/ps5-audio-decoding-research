@@ -109,6 +109,33 @@ The wrapper imports `open`, `ioctl`, and `close` and constructs AJM batches used
 libraries. This strengthens the device-backed hardware/firmware-offload attribution without identifying
 the exact physical decoder block.
 
+## `libSceAudioIn.sprx`
+
+| Function | Evidence |
+|---|---|
+| `sceAudioInOpen` | Opens a user-routed input for a purpose, fixed grain, sample rate, and PCM format. The accepted core settings include 128/256-frame grains and 16/48 kHz. |
+| `sceAudioInInput` | Waits for and copies one complete PCM block into application-owned memory. |
+| `sceAudioInGetSilentState` | Returns an instantaneous silence-reason mask; it is not a single permanent boolean result. |
+| `sceAudioInClose` | Releases the application input handle. |
+
+The application route is associated with a signed-in user and input purpose.
+Signed-16 mono format `0` and stereo format `2` are accepted; a legacy mono
+alias is also present. The inspected float path was not needed for the runtime
+controller proof.
+
+Static inspection of the audio-routing service shows that controller
+microphones are managed as per-controller audio devices and fed into the normal
+AudioIn routing system. The app-facing path does not require direct Bluetooth
+or HID PCM access. The privileged audio-system service is routing
+infrastructure, not a library that ordinary applications should call for raw
+capture.
+
+Two firmware-6.02 runs then corroborated the path at runtime: VoiceChat,
+General, and VoiceRecognition each produced valid 16 kHz signed-16 mono PCM
+from a powered-on, unmuted DualSense. See
+[controller microphone input](docs/AUDIO-INPUT.md) for the bounded public
+recipe and evidence limits.
+
 ## `libSceAvPlayerStreaming.sprx`
 
 The library exposes HTTP and transport-stream streaming support (`MvpHttp*`, `sceTs*`). It is relevant

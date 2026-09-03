@@ -9,7 +9,7 @@ integration.
 The repository covers the validated AAC, MP3, Opus, Vorbis, FLAC, and HLS paths
 used by the production PSRadio implementation. It documents the difference
 between CPU software decoding and the platform's hardware/firmware audio-offload
-path, and includes direct AAC and Opus probes.
+path, and includes direct decoder and controller-microphone probes.
 
 ## Project status
 
@@ -26,7 +26,7 @@ path, and includes direct AAC and Opus probes.
 | FLAC | No usable native route on firmware 6.02; bounded `dr_flac` CPU decoding supports native FLAC and Ogg-FLAC and is PS5-validated |
 | HLS | Bounded unencrypted audio-only MPEG-TS/ADTS AAC-LC slice is implemented and reuses native AAC |
 | PCM output | `libSceAudioOut` wrapper and working native application examples |
-| Microphone input | `libSceAudioIn` wrapper and block-capture documentation |
+| Controller microphone input | Runtime-proven through `libSceAudioIn`; VoiceChat, General, and VoiceRecognition produced valid 16 kHz mono PCM in two Chiaki-free runs |
 | Advanced audio | Raw bindings for AJM, AudioOut2, Audio3d, NGS2, AAC encoding, and ATRAC9 encoding |
 
 Firmware interfaces, title capabilities, and ABI details can change. Treat
@@ -56,6 +56,7 @@ release record.
 | Vorbis | Static AvPlayer/AJM review found no callable native PCM route; AvPlayer source probes cannot prove absence |
 | Container semantics | MP4 is a container; AAC, Opus, AC-3, or another track codec determines the route |
 | Application path | Production PSRadio demonstrates AAC/MP3/Opus/Vorbis/FLAC/HLS-to-PCM-to-AudioOut streaming |
+| Controller microphone | A powered-on, unmuted DualSense is captured through the normal user-routed `libSceAudioIn` path; direct HID/Bluetooth PCM access is unnecessary |
 
 The safest technical term is **hardware/firmware audio offload**. Static and
 runtime evidence confirms submission to the AJM audio device; it does not
@@ -100,6 +101,7 @@ libSceAudioOut -> speakers / BGM / voice / personal / pad routes
 | ATRAC9 | Encoder binding and host-side asset converter available | `At9Enc` or `ps5-at9-converter`; runtime decoder path remains open |
 | PCM output | High-level and raw AudioOut paths | `AudioOutDevice` for stereo signed-16 blocks |
 | Spatial/object output | AudioOut2 and Audio3d raw bindings | Use only when application-owned spatial routing is required |
+| DualSense microphone | Runtime-proven through user-routed AudioIn purposes `0`, `1`, and `5` | Use `libSceAudioIn` on a capture worker; keep the controller powered and the orange mute light off |
 
 ## Quick start
 
@@ -141,6 +143,12 @@ framing, TOC dispatch, and codec-16 CELT retry are in PSRadio.
 For native MP3, copy `native-audio-poc/mp3/src/main.cpp` and place a 48 kHz
 mono or stereo file at `/data/mp3-hw-poc.mp3`. All runnable examples in this
 repository are C++20 source overlays for the boilerplate application.
+
+For controller microphone capture, copy
+`native-audio-poc/microphone/src/main.cpp`, link the AudioIn import, and launch
+without Remote Play when validating a controller connected locally to the
+console. See [Audio input](docs/AUDIO-INPUT.md) for mute, routing, silence-state,
+and privacy requirements.
 
 Load a native payload or complete title with the workflow appropriate to the
 boilerplate and target loader. See [Native C++ integration](docs/NATIVE-C.md).

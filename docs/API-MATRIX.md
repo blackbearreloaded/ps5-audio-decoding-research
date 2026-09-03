@@ -6,7 +6,7 @@ code; it does not mean the path has been runtime-tested on every firmware.
 | Library / service | What it does | System module / load note | Local wrapper | Current status |
 |---|---|---|---|---|
 | `libSceAudioOut` | Fixed-port PCM output, volume, queue/drain | Usually resident; call init before opening | `AudioOut`, `AudioOutDevice` | Binding available; native output used by PS5 apps |
-| `libSceAudioIn` | Microphone capture and silent-state query | Usually resident | `AudioIn`, `AudioInDevice` | Binding available |
+| `libSceAudioIn` | Microphone capture and silent-state query | Usually resident | `AudioIn`, `AudioInDevice` | Runtime-validated with the DualSense through VoiceChat, General, and VoiceRecognition routes |
 | `libSceAudiodec` | Registered compressed decoders | `AudioDec = 0x0088` | `Audiodec`, `AudioDecoder` | AAC codec 3 and MP3 codec 2 are runtime-proven through the native/AJM path |
 | `libSceAudiodecCpu` | CPU decoder service/fallback | `AudioDecCpu = 0x00BD` | No high-level CPU decoder wrapper | CPU AAC branch statically confirmed through AvPlayer |
 | `libSceAudiodecCpuM4aac` | CPU AAC implementation module | Loaded by the CPU path as needed | No direct high-level wrapper | Present in the inspected inventory; direct use open |
@@ -19,7 +19,7 @@ code; it does not mean the path has been runtime-tested on every firmware.
 | `libSceM4aacEnc` | AAC-LC encoding | `M4aacEnc = 0x00BC` | `M4aacEnc`, `AacEncoder` | Binding available; 48 kHz, mono/stereo encoder |
 | `libSceAt9Enc` | ATRAC9 encoding | Separate encoder library | `At9Enc` raw binding | Binding available; container/config work remains application-owned |
 | `libSceAudioPropagation` | Audio propagation support | No local system-module enum in the current guide | No high-level wrapper | Library present; no usable workflow established |
-| `libSceAudioSystem` | System-level audio facilities | No local recipe | No high-level wrapper | Library present; scope not yet mapped |
+| `libSceAudioSystem` | Privileged device registration and routing | Internal service; not an app capture dependency | No high-level wrapper | Controller microphones feed the normal AudioIn routing system; applications should call `libSceAudioIn` |
 | `libSceCustomMusicAudioOut` | Custom music output facilities | No local recipe | No high-level wrapper | Library present; scope not yet mapped |
 | `libSceOpusDec` | Stateful SILK/hybrid/general Opus packet-to-PCM decoder | Runtime loader maps `libSceOpusDec.sprx` to internal module `0x80000069` | Recovered native ABI and production wrapper | Runtime-proven through AJMI/AJM codec 21 |
 | `libSceOpusCeltDec` | CELT-only packet decoder | Runtime loader maps `libSceOpusCeltDec.sprx` to internal module `0x80000044` | Recovered native ABI and production fallback | Runtime-proven through AJMI/AJM codec 16; use for TOC configurations 16-31 |

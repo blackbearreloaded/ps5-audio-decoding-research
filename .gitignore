@@ -21,6 +21,11 @@
 *.til
 *.zip
 
+# Captured microphone audio, persistent title images, and private runtime logs.
+*.wav
+*.log
+download0*.dat
+
 # Do not publish captured screens or photos from private analysis sessions.
 *.bmp
 *.gif

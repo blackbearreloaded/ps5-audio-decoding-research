@@ -29,6 +29,16 @@ Use [the native MP3 probe](native-audio-poc/README.md). It frames a bounded
 signed-16 PCM to `AudioOut`. The complete source is
 [`native-audio-poc/mp3/src/main.cpp`](native-audio-poc/mp3/src/main.cpp).
 
+## Native controller microphone
+
+Use [the native controller-microphone probe](native-audio-poc/README.md). It
+captures ten seconds from the initial user's `libSceAudioIn` route as bounded
+16 kHz signed-16 mono PCM, writes a standard WAV file under `/download0`, and
+records the open result, per-block silence state, and peak amplitude. The
+controller must be powered on and its orange microphone-mute light must be off.
+The complete source is
+[`native-audio-poc/microphone/src/main.cpp`](native-audio-poc/microphone/src/main.cpp).
+
 ## Native production path
 
 For a complete network player, start with
