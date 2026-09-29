@@ -267,3 +267,5 @@ Built with the [PS5 Payload SDK](https://github.com/ps5-payload-dev/sdk) by John
 
 Repository-authored documentation and examples are licensed under
 GPL-3.0-or-later. See [LICENSE](LICENSE).
+
+This project was developed with AI assistance from OpenAI and/or Anthropic tools.
