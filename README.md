@@ -263,5 +263,7 @@ project is independent and is not affiliated with or endorsed by Sony.
 
 ## License
 
+Built with the [PS5 Payload SDK](https://github.com/ps5-payload-dev/sdk) by John Törnblom (ps5-payload-dev).
+
 Repository-authored documentation and examples are licensed under
 GPL-3.0-or-later. See [LICENSE](LICENSE).
