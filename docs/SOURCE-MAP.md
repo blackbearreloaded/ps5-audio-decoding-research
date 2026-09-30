@@ -13,8 +13,9 @@ remains the production CELT-routing milestone.
 
 ## Host-side format tooling
 
-- `workspace/dev/ps5-at9-converter/README.md` — Windows `snd0.at9` converter and fixed profile.
-- `workspace/dev/ps5-at9-converter/docs/atrac9-profile.md` — container layout and size calculations.
+- [`ps5-at9-converter`](https://github.com/blackbearreloaded/ps5-at9-converter) — Python `snd0.at9` converter with a native ATRAC9 encoder.
+- [`ps5-at9-converter/docs/atrac9-profile.md`](https://github.com/blackbearreloaded/ps5-at9-converter/blob/main/docs/atrac9-profile.md) — container
+  layout and size calculations.
 
 ## Native C/C++ examples
 

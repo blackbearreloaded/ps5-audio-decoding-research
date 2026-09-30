@@ -102,10 +102,10 @@ There is no high-level `At9Audio` asset wrapper in the current guide. Treat it a
 or asset-pipeline task until a target-validated container workflow is added.
 
 For a ready host-side asset workflow, see
-`workspace/dev/ps5-at9-converter`. It decodes MP3/WAV/M4A/AAC/WMA through Windows Media Foundation,
-converts to 48 kHz stereo PCM, and writes the fixed PS5 `snd0.at9` profile. Its
-`docs/atrac9-profile.md` documents the RIFF/AT9 layout and its 2 MiB asset-size constraint. This is a
-desktop encoder, not the PS5 runtime decoder path.
+[ps5-at9-converter](https://github.com/blackbearreloaded/ps5-at9-converter). It decodes MP3, WAV, AIFF and FLAC itself, converts to 48 kHz
+stereo, normalises loudness and writes the PS5 `snd0.at9` profile with its own ATRAC9 encoder. Its
+[`docs/atrac9-profile.md`](https://github.com/blackbearreloaded/ps5-at9-converter/blob/main/docs/atrac9-profile.md) documents the RIFF/AT9 layout
+and the 2 MiB asset-size limit. This is a desktop encoder, not the PS5 runtime decoder path.
 
 ## Libraries present but not yet documented as application APIs
 

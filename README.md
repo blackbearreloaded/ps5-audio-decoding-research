@@ -240,7 +240,7 @@ The research was developed alongside these applications and SDK components:
 - `workspace/dev/psradio` — native AAC radio, AudioOut, and controller implementation.
 - `workspace/dev/ps5-radio-browser` — RmlUi radio application with the same audio path.
 - `workspace/dev/ps5-moonlight-client` — Moonlight audio output and CPU Opus baseline.
-- `workspace/dev/ps5-at9-converter` — Windows ATRAC9 asset converter.
+- [`ps5-at9-converter`](https://github.com/blackbearreloaded/ps5-at9-converter) — Python `snd0.at9` converter with a native ATRAC9 encoder.
 
 The two related Codex tasks are [Zero-Copy-GPU-Decoding](codex://threads/01a0272d-fb7e-7981-89fa-1f50a3f5d9df)
 and [Radio-App-RmlUi](codex://threads/01a02cc0-e8bc-7b91-9b6a-ecc20035b294).
