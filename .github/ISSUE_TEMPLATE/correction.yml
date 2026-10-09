@@ -1,0 +1,38 @@
+name: "Correction or addition"
+description: "Something in these notes is wrong, unclear or missing"
+title: ""
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before you post**
+
+        - Describe only what you observed on your own device, in your own words.
+        - Do not post SDK files or headers, firmware, disassembly, decompiled code, keys or links to them.
+  - type: input
+    id: where
+    attributes:
+      label: "Which document and section?"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: "What is wrong or missing?"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "How do you know?"
+      description: "What you ran and what you observed on your own device"
+    validations:
+      required: false
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: "Checks"
+      options:
+        - label: "This contains only my own observations and words."
+          required: true
