@@ -1,0 +1,24 @@
+**/bin/
+**/obj/
+**/out/
+/runtime-logs/
+
+# Build outputs and packages.
+*.a
+*.bin
+*.dmp
+*.elf
+*.pkg
+*.zip
+
+# Captured audio and runtime logs.
+*.wav
+*.log
+
+# Screenshots and photos.
+*.bmp
+*.gif
+*.jpeg
+*.jpg
+*.png
+*.webp
